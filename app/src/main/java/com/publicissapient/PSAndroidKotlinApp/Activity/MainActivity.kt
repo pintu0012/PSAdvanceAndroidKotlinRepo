@@ -1,16 +1,18 @@
-package com.publicissapient.PSAndroidKotlinApp
+package com.publicissapient.PSAndroidKotlinApp.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.publicissapient.PSAndroidKotlinApp.R
+import com.publicissapient.PSAndroidKotlinApp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    val fruits = listOf<String>("mango", "banana", "pineapple", "orange","watermelon")
-
+    private val fruits = listOf<String>("mango", "banana", "pineapple", "orange","watermelon")
+    lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        println(callAFunction(5,5).toString())
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         printFruitsArray()
     }
 
@@ -24,7 +26,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun callAFunction(a: Int ,b: Int ):Int {
-        return  a+b
-    }
 }
