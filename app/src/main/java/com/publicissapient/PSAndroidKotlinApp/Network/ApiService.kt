@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("https://inshorts.deta.dev/news?category=all")
-    fun getNewsList() : Call<List<NewsModelClass>>
+    fun getNewsList() : Call<NewsModelClass>
 
 //    companion object {
 //        var retrofitService: RetrofitService? = null

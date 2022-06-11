@@ -11,15 +11,15 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.databinding.adapters.AdapterViewBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.publicissapient.PSAndroidKotlinApp.Model.News
 import com.publicissapient.PSAndroidKotlinApp.Model.NewsModelClass
 import com.publicissapient.PSAndroidKotlinApp.R
 import com.publicissapient.PSAndroidKotlinApp.databinding.NewItemBinding
 
-class NewsAdapter (private val mList: List<NewsModelClass>): RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
+class NewsAdapter ( var mList: ArrayList<News>): RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
 
-    var news = mutableListOf<NewsModelClass>()
-    fun setMovieList(movies: List<NewsModelClass>) {
-        this.news = movies.toMutableList()
+    fun setNewsList(movies: List<News>) {
+        mList.addAll(movies)
         notifyDataSetChanged()
     }
 

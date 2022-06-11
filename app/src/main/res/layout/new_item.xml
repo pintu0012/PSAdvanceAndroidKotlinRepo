@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_margin="8dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:text="TITLE"
             android:textSize="14dp"
+            android:layout_marginLeft="16dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="SUBTITLE"
             android:textSize="12sp"
+            android:layout_marginLeft="16dp"
             android:paddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
