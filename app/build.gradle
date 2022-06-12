@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -43,7 +44,7 @@ def lifeCycleExtensionVersion='2.2.0'
 def supportVersion='28.0.0'
 def daggerVersion='2.13'
 def glideVersion='4.13.1'
-def mockitoVersion='2.11.0'
+def mockitoVersion='4.6.1'
 def rxJavaVersion="2.0.1"
 def swipeRefreshVersion ="1.1.0"
 
@@ -56,6 +57,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     //SWIPE REFRESH
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion"
@@ -80,8 +82,8 @@ dependencies {
     //Dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
 
     //Mockito

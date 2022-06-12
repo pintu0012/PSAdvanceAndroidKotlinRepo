@@ -1,15 +1,21 @@
-package com.publicissapient.PSAndroidKotlinApp.Network
+package com.publicissapient.PSAndroidKotlinApp.di
 
+import com.publicissapient.PSAndroidKotlinApp.Network.NewsApi
+import com.publicissapient.PSAndroidKotlinApp.Network.NewsService
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetroInstance {
-      val baseUrl ="https://inshorts.deta.dev/"
+@Module
+class ApiModule {
+    val baseUrl ="https://inshorts.deta.dev/"
 
-     fun getInstance(): Retrofit{
+    @Provides
+    fun provideNewsApi(): NewsApi {
         val interceptor =  HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
@@ -21,5 +27,11 @@ object RetroInstance {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
             .build()
+            .create(NewsApi::class.java)
+    }
+
+    @Provides
+    fun provideNewsService() : NewsService{
+        return  NewsService()
     }
 }
