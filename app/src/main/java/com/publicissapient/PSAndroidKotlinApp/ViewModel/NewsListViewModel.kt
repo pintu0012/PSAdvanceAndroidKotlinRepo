@@ -6,6 +6,11 @@ import com.publicissapient.PSAndroidKotlinApp.Model.News
 import com.publicissapient.PSAndroidKotlinApp.Model.NewsModelClass
 import com.publicissapient.PSAndroidKotlinApp.Network.ApiService
 import com.publicissapient.PSAndroidKotlinApp.Network.RetroInstance
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,10 +21,35 @@ class NewsListViewModel : ViewModel() {
     val list = MutableLiveData<List<News>>()
     val errorMessage = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
+    private val disposable = CompositeDisposable()
+    val service = RetroInstance.getInstance().create<ApiService>()
 
 
     fun refresh() {
-        getNewsList()
+//        getNewsList()
+    fetchNewsList()
+    }
+
+    private fun fetchNewsList(){
+        loading.value=true
+        disposable.add(
+            service.getNews()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object :DisposableSingleObserver<NewsModelClass>(){
+                    override fun onSuccess(value: NewsModelClass) {
+                        list.value =value.data
+                        loading.value=false
+                        errorMessage.value=null
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        loading.value=false
+                        errorMessage.value= e?.message
+                    }
+
+                })
+        )
     }
 
     private fun getNewsList() {
@@ -41,6 +71,11 @@ class NewsListViewModel : ViewModel() {
             }
         }
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 
 }

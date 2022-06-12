@@ -3,6 +3,7 @@ package com.publicissapient.PSAndroidKotlinApp.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = newsAdapter
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing=false
+            viewModel.refresh()
+        }
         observeViewModel()
     }
 
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         viewModel.loading.observe(this, Observer { loading -> loading?.let{
-            println("Loading")
+           binding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
         } })
         viewModel.errorMessage.observe(this, Observer { errorMessage -> errorMessage?.let{
             println("errorMessage")
